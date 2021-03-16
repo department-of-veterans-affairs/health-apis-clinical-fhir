@@ -1,5 +1,4 @@
-ARG VERSION=8-NR-1.0.97
-FROM vasdvp/health-apis-centos:$VERSION
+FROM vasdvp/health-apis-centos:8
 
 #INSTALL AWSCLI
 
