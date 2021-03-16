@@ -14,6 +14,7 @@
     <docker-maven-plugin.version>0.34.0</docker-maven-plugin.version>
     <docker.organization>vasdvp</docker.organization>
     <docker.imageName>health-apis-${project.artifactId}</docker.imageName>
+    <docker.imagePullPolicy>Always</docker.imagePullPolicy>
   </properties>
   <profiles>
     <profile>
