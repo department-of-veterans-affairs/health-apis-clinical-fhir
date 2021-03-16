@@ -22,5 +22,7 @@ else
 fi
 
 log "Starting nginx..."
-nginx -c /nginx/nginx.conf
+nginx -g "daemon off;" -c /nginx/nginx.conf &
+touch /var/log/nginx/access.log
+tail -F /var/log/nginx/access.log
 
