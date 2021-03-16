@@ -13,8 +13,8 @@ CONF_FILE=${NGINX_CONF:-nginx.conf}
 
 mkdir /nginx
 
-log "pulling nginx configuration from s3"
-aws s3 cp s3://$DU_AWS_BUCKET_NAME/$DU_S3_FOLDER/$CONF_FILE /nginx/$CONF_FILE
+log "Pulling nginx configuration from s3..."
+aws s3 cp s3://$DU_AWS_BUCKET_NAME/$DU_S3_FOLDER/$CONF_FILE /nginx/nginx.conf
 
-log "starting nginx with configuration file: $CONF_FILE"
-nginx -c /nginx/$CONF_FILES
+log "Starting nginx..."
+nginx -c /nginx/nginx.conf
