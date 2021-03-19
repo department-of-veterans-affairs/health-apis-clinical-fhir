@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 @Slf4j
-public class HealthCheckIT {
+public class ClinicalFhirIT {
   SystemDefinition def = SystemDefinitions.systemDefinition();
   ServiceDefinition r4 = def.getR4();
   String patientId = def.getPublicIds().getPatient();
@@ -26,8 +26,7 @@ public class HealthCheckIT {
   @Test
   void unsupportedResource() {
     assumeEnvironmentNotIn(Environment.LOCAL);
-    var apiPath = r4.apiPath();
-    var request = apiPath + "Immunization?patient=";
+    var request = apiPath + "Immunization?patient=" + patientId;
     log.info("Verify {} has status (404)", request);
     TestClients.internal().get(request).expect(404);
   }

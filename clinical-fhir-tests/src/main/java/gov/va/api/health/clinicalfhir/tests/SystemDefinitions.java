@@ -110,11 +110,11 @@ public final class SystemDefinitions {
   }
 
   private boolean isDqAvailable() {
-    return BooleanUtils.toBoolean(systemPropertyOrEnvVar("dq.is-available", "false"));
+    return BooleanUtils.toBoolean(systemPropertyOrEnvVar("data-query.is-available", "false"));
   }
 
   private boolean isVfqAvailable() {
-    return BooleanUtils.toBoolean(systemPropertyOrEnvVar("vfq.is-available", "false"));
+    return BooleanUtils.toBoolean(systemPropertyOrEnvVar("vista-fhir-query.is-available", "false"));
   }
 
   private String systemPropertyOrEnvVar(String property, String defaultValue) {

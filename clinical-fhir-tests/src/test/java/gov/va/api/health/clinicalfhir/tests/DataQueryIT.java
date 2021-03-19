@@ -14,7 +14,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 public class DataQueryIT {
   SystemDefinition def = SystemDefinitions.systemDefinition();
   ServiceDefinition r4 = def.getR4();
-  String patientId = def.getPublicIds().getPatient();
   String apiPath = r4.apiPath();
 
   static Stream<Arguments> resourceQueries() {
@@ -28,7 +27,6 @@ public class DataQueryIT {
   @MethodSource("resourceQueries")
   void routeAppropriateResourceToDataQuery(String query, int expectedStatus) {
     assumeTrue(def.isDqAvailable(), "data-query is unavailable.");
-    var apiPath = r4.apiPath();
     var request = apiPath + query;
     log.info("Verify {} has status (200)", request);
     TestClients.internal().get(request).expect(expectedStatus);

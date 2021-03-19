@@ -36,6 +36,8 @@ run() {
     --network="host" \
     -e K8S_LOAD_BALANCER=$THIS_MACHINE \
     -e K8S_ENVIRONMENT=${ENV:-local} \
+    -e DQ_AVAILABLE=${TEST_DQ:-false} \
+    -e DFQ_AVAILABLE=${TEST_VFQ:-false} \
     -e SENTINEL_ENV=${ENV:-local} \
      vasdvp/health-apis-clinical-fhir-tests:latest $@
 }
