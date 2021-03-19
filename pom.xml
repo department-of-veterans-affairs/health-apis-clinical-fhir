@@ -11,5 +11,6 @@
   <packaging>pom</packaging>
   <modules>
     <module>clinical-fhir-nginx-proxy</module>
+    <module>clinical-fhir-tests</module>
   </modules>
 </project>

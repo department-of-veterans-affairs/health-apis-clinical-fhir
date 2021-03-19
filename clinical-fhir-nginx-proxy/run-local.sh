@@ -22,7 +22,7 @@ init() {
 main() {
   local conf=${1:-}
 
-  if [ -z "${conf:-}" ]; then usage "nginx-configuration-file location must be specified."; fi 
+  if [ -z "${conf:-}" ]; then usage "nginx-configuration-file location must be specified."; fi
 
   local version=$(projectVersion)
   echo "Found project version: ${version}"
@@ -35,7 +35,7 @@ main() {
   docker run --rm --detach \
     --name clinical-fhir-proxy \
     --volume ${conf}:/local-nginx.conf \
-    -p 9000:9000 \
+    --net="host" \
     --env NGINX_CONF=/local-nginx.conf \
     vasdvp/health-apis-clinical-fhir-nginx-proxy:${version}
 }
@@ -53,4 +53,3 @@ projectVersion() {
 
 init
 main $@
-
