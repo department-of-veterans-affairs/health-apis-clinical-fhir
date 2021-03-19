@@ -14,5 +14,7 @@ public final class SystemDefinition {
 
   @NonNull TestIds publicIds;
 
-  boolean isChapiAvailable;
+  boolean isVfqAvailable;
+
+  boolean isDqAvailable;
 }

@@ -18,7 +18,8 @@ public final class SystemDefinitions {
         .internal(serviceDefinition("internal", url, 443, null, "/clinical-fhir/v0/"))
         .r4(serviceDefinition("r4", url, 443, magicAccessToken(), "/clinical-fhir/v0/r4"))
         .publicIds(syntheticIds())
-        .isChapiAvailable(isChapiAvailable())
+        .isDqAvailable(isDqAvailable())
+        .isVfqAvailable(isVfqAvailable())
         .build();
   }
 
@@ -28,7 +29,8 @@ public final class SystemDefinitions {
         .internal(serviceDefinition("internal", url, 8120, null, "/clinical-fhir/v0"))
         .r4(serviceDefinition("r4", url, 8120, null, "/clinical-fhir/v0/r4"))
         .publicIds(localIds())
-        .isChapiAvailable(isChapiAvailable())
+        .isDqAvailable(isDqAvailable())
+        .isVfqAvailable(isVfqAvailable())
         .build();
   }
 
@@ -46,7 +48,8 @@ public final class SystemDefinitions {
         .internal(serviceDefinition("internal", url, 443, null, "/clinical-fhir/v0/"))
         .r4(serviceDefinition("r4", url, 443, magicAccessToken(), "/clinical-fhir/v0/r4"))
         .publicIds(syntheticIds())
-        .isChapiAvailable(isChapiAvailable())
+        .isDqAvailable(isDqAvailable())
+        .isVfqAvailable(isVfqAvailable())
         .build();
   }
 
@@ -68,7 +71,8 @@ public final class SystemDefinitions {
         .internal(serviceDefinition("internal", url, 443, null, "/clinical-fhir/v0/"))
         .r4(serviceDefinition("r4", url, 443, magicAccessToken(), "/clinical-fhir/v0/r4"))
         .publicIds(productionIds())
-        .isChapiAvailable(isChapiAvailable())
+        .isDqAvailable(isDqAvailable())
+        .isVfqAvailable(isVfqAvailable())
         .build();
   }
 
@@ -78,7 +82,8 @@ public final class SystemDefinitions {
         .internal(serviceDefinition("internal", url, 443, null, "/clinical-fhir/v0/"))
         .r4(serviceDefinition("r4", url, 443, magicAccessToken(), "/clinical-fhir/v0/r4"))
         .publicIds(syntheticIds())
-        .isChapiAvailable(isChapiAvailable())
+        .isDqAvailable(isDqAvailable())
+        .isVfqAvailable(isVfqAvailable())
         .build();
   }
 
@@ -104,8 +109,12 @@ public final class SystemDefinitions {
     }
   }
 
-  private boolean isChapiAvailable() {
-    return BooleanUtils.toBoolean(systemPropertyOrEnvVar("chapi.is-available", "false"));
+  private boolean isDqAvailable() {
+    return BooleanUtils.toBoolean(systemPropertyOrEnvVar("dq.is-available", "false"));
+  }
+
+  private boolean isVfqAvailable() {
+    return BooleanUtils.toBoolean(systemPropertyOrEnvVar("vfq.is-available", "false"));
   }
 
   private String systemPropertyOrEnvVar(String property, String defaultValue) {

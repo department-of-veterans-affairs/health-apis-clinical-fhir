@@ -12,13 +12,15 @@ init() {
 
   if [ -z "${SENTINEL_ENV:-}" ]; then SENTINEL_ENV=$K8S_ENVIRONMENT; fi
   if [ -z "${CHAPI_URL:-}" ]; then CHAPI_URL=https://$K8S_LOAD_BALANCER; fi
-  if [ -z "${CHAPI_AVAILABLE:-}" ]; then CHAPI_AVAILABLE="true"; fi
+  if [ -z "${DQ_AVAILABLE:-}" ]; then DQ_AVAILABLE="true"; fi
+  if [ -z "${VFQ_AVAILABLE:-}" ]; then VFQ_AVAILABLE="true"; fi
 }
 
 main() {
   addToSystemProperties "sentinel" "${SENTINEL_ENV}"
   addToSystemProperties "sentinel.chapi.url" "${CHAPI_URL}"
-  addToSystemProperties "chapi.is-available" "${CHAPI_AVAILABLE}"
+  addToSystemProperties "dq.is-available" "${DQ_AVAILABLE}"
+  addToSystemProperties "vfq.is-available" "${VFQ_AVAILABLE}"
 
   java-tests \
     --module-name "clinical-fhir-tests" \
