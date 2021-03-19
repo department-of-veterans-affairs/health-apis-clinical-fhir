@@ -13,4 +13,6 @@ public final class SystemDefinition {
   @NonNull ServiceDefinition r4;
 
   @NonNull TestIds publicIds;
+
+  boolean isChapiAvailable;
 }

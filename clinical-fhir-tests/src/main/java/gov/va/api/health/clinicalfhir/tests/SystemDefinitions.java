@@ -5,18 +5,20 @@ import static gov.va.api.health.sentinel.SentinelProperties.magicAccessToken;
 import gov.va.api.health.sentinel.Environment;
 import gov.va.api.health.sentinel.SentinelProperties;
 import gov.va.api.health.sentinel.ServiceDefinition;
+import java.util.Locale;
 import java.util.Optional;
 import lombok.experimental.UtilityClass;
+import org.apache.commons.lang3.BooleanUtils;
 
 @UtilityClass
 public final class SystemDefinitions {
-
   private static SystemDefinition lab() {
     String url = "https://blue.lab.lighthouse.va.gov";
     return SystemDefinition.builder()
         .internal(serviceDefinition("internal", url, 443, null, "/clinical-fhir/v0/"))
         .r4(serviceDefinition("r4", url, 443, magicAccessToken(), "/clinical-fhir/v0/r4"))
         .publicIds(syntheticIds())
+        .isChapiAvailable(isChapiAvailable())
         .build();
   }
 
@@ -26,6 +28,7 @@ public final class SystemDefinitions {
         .internal(serviceDefinition("internal", url, 8120, null, "/clinical-fhir/v0"))
         .r4(serviceDefinition("r4", url, 8120, null, "/clinical-fhir/v0/r4"))
         .publicIds(localIds())
+        .isChapiAvailable(isChapiAvailable())
         .build();
   }
 
@@ -43,6 +46,7 @@ public final class SystemDefinitions {
         .internal(serviceDefinition("internal", url, 443, null, "/clinical-fhir/v0/"))
         .r4(serviceDefinition("r4", url, 443, magicAccessToken(), "/clinical-fhir/v0/r4"))
         .publicIds(syntheticIds())
+        .isChapiAvailable(isChapiAvailable())
         .build();
   }
 
@@ -64,6 +68,7 @@ public final class SystemDefinitions {
         .internal(serviceDefinition("internal", url, 443, null, "/clinical-fhir/v0/"))
         .r4(serviceDefinition("r4", url, 443, magicAccessToken(), "/clinical-fhir/v0/r4"))
         .publicIds(productionIds())
+        .isChapiAvailable(isChapiAvailable())
         .build();
   }
 
@@ -73,6 +78,7 @@ public final class SystemDefinitions {
         .internal(serviceDefinition("internal", url, 443, null, "/clinical-fhir/v0/"))
         .r4(serviceDefinition("r4", url, 443, magicAccessToken(), "/clinical-fhir/v0/r4"))
         .publicIds(syntheticIds())
+        .isChapiAvailable(isChapiAvailable())
         .build();
   }
 
@@ -96,5 +102,18 @@ public final class SystemDefinitions {
       default:
         throw new IllegalArgumentException("Unknown sentinel environment: " + Environment.get());
     }
+  }
+
+  private boolean isChapiAvailable() {
+    return BooleanUtils.toBoolean(systemPropertyOrEnvVar("chapi.is-available", "false"));
+  }
+
+  private String systemPropertyOrEnvVar(String property, String defaultValue) {
+    var value = System.getProperty(property);
+    if (value == null) {
+      value =
+          System.getenv(property.replace('.', '_').replace('-', '_').toUpperCase(Locale.ENGLISH));
+    }
+    return value == null ? defaultValue : value;
   }
 }

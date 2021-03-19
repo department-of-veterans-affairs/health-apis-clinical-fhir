@@ -7,6 +7,9 @@
     <version>7.0.23</version>
     <relativePath/>
   </parent>
+  <properties>
+    <docker.imageName>health-apis-${project.artifactId}</docker.imageName>
+  </properties>
   <artifactId>clinical-fhir-tests</artifactId>
   <version>0.0.3-SNAPSHOT</version>
   <packaging>jar</packaging>

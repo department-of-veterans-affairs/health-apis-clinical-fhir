@@ -1,6 +1,7 @@
 package gov.va.api.health.clinicalfhir.tests;
 
 import static gov.va.api.health.sentinel.EnvironmentAssumptions.assumeEnvironmentNotIn;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import gov.va.api.health.sentinel.Environment;
@@ -29,6 +30,7 @@ public class VistaFhirQueryIT {
   @MethodSource("resourceQueries")
   void routeAppropriateResourceToVistaFhirQuery(String query, int expectedStatus) {
     assumeEnvironmentNotIn(Environment.STAGING);
+    assumeTrue(def.isChapiAvailable(), "clinical-fhir-nginx-proxy is unavailable.");
     var apiPath = r4.apiPath();
     var request = apiPath + query;
     log.info("Verify {} has status (200)", request);
