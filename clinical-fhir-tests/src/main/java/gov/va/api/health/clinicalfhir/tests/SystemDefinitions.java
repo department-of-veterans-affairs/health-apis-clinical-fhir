@@ -15,7 +15,7 @@ public final class SystemDefinitions {
   private static SystemDefinition lab() {
     String url = "https://blue.lab.lighthouse.va.gov";
     return SystemDefinition.builder()
-        .internal(serviceDefinition("internal", url, 443, null, "/clinical-fhir/v0/"))
+        .internal(serviceDefinition("internal", url, 443, magicAccessToken(), "/clinical-fhir/v0/"))
         .r4(serviceDefinition("r4", url, 443, magicAccessToken(), "/clinical-fhir/v0/r4"))
         .publicIds(syntheticIds())
         .isDqAvailable(isDqAvailable())
@@ -45,7 +45,7 @@ public final class SystemDefinitions {
   private static SystemDefinition qa() {
     String url = "https://blue.qa.lighthouse.va.gov";
     return SystemDefinition.builder()
-        .internal(serviceDefinition("internal", url, 443, null, "/clinical-fhir/v0/"))
+        .internal(serviceDefinition("internal", url, 443, magicAccessToken(), "/clinical-fhir/v0/"))
         .r4(serviceDefinition("r4", url, 443, magicAccessToken(), "/clinical-fhir/v0/r4"))
         .publicIds(syntheticIds())
         .isDqAvailable(isDqAvailable())
@@ -68,7 +68,7 @@ public final class SystemDefinitions {
   private static SystemDefinition staging() {
     String url = "https://blue.staging.lighthouse.va.gov";
     return SystemDefinition.builder()
-        .internal(serviceDefinition("internal", url, 443, null, "/clinical-fhir/v0/"))
+        .internal(serviceDefinition("internal", url, 443, magicAccessToken(), "/clinical-fhir/v0/"))
         .r4(serviceDefinition("r4", url, 443, magicAccessToken(), "/clinical-fhir/v0/r4"))
         .publicIds(productionIds())
         .isDqAvailable(isDqAvailable())
@@ -79,7 +79,7 @@ public final class SystemDefinitions {
   private static SystemDefinition stagingLab() {
     String url = "https://blue.staging-lab.lighthouse.va.gov";
     return SystemDefinition.builder()
-        .internal(serviceDefinition("internal", url, 443, null, "/clinical-fhir/v0/"))
+        .internal(serviceDefinition("internal", url, 443, magicAccessToken(), "/clinical-fhir/v0/"))
         .r4(serviceDefinition("r4", url, 443, magicAccessToken(), "/clinical-fhir/v0/r4"))
         .publicIds(syntheticIds())
         .isDqAvailable(isDqAvailable())

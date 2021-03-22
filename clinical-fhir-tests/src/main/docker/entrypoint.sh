@@ -25,7 +25,7 @@ main() {
   java-tests \
     --module-name "clinical-fhir-tests" \
     --regression-test-pattern ".*IT\$" \
-    --smoke-test-pattern ".*HealthCheckIT\$" \
+    --smoke-test-pattern ".*ClinicalFhirIT\$" \
     ${SYSTEM_PROPERTIES[@]} \
     $@ \
     2>&1 | grep -v "WARNING: "
