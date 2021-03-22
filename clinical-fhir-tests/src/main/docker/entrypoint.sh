@@ -21,11 +21,12 @@ main() {
   addToSystemProperties "sentinel.chapi.url" "${CHAPI_URL}"
   addToSystemProperties "data-query.is-available" "${DQ_AVAILABLE}"
   addToSystemProperties "vista-fhir-query.is-available" "${VFQ_AVAILABLE}"
+  addToSystemProperties "access-token" "${MAGIC_ACCESS_TOKEN}"
 
   java-tests \
     --module-name "clinical-fhir-tests" \
     --regression-test-pattern ".*IT\$" \
-    --smoke-test-pattern ".*HealthCheckIT\$" \
+    --smoke-test-pattern ".*ClinicalFhirIT\$" \
     ${SYSTEM_PROPERTIES[@]} \
     $@ \
     2>&1 | grep -v "WARNING: "
