@@ -19,7 +19,7 @@ public class DataQueryIT {
   static Stream<Arguments> resourceQueries() {
     var testIds = SystemDefinitions.systemDefinition().getPublicIds();
     return Stream.of(
-        arguments("Patient?identifier=" + testIds.getPatient(), 200),
+        arguments("Patient/" + testIds.getPatient(), 200),
         arguments("Condition?patient=" + testIds.getPatient(), 200));
   }
 
