@@ -21,6 +21,7 @@ main() {
   addToSystemProperties "sentinel.chapi.url" "${CHAPI_URL}"
   addToSystemProperties "data-query.is-available" "${DQ_AVAILABLE}"
   addToSystemProperties "vista-fhir-query.is-available" "${VFQ_AVAILABLE}"
+  addToSystemProperties "access-token" "${TOKEN}"
 
   java-tests \
     --module-name "clinical-fhir-tests" \
