@@ -18,7 +18,8 @@ init() {
 
 main() {
   addToSystemProperties "sentinel" "${SENTINEL_ENV}"
-  addToSystemProperties "sentinel.chapi.url" "${CHAPI_URL}"
+  addToSystemProperties "sentinel.internal.url" "${CHAPI_URL}"
+  addToSystemProperties "sentinel.r4.url" "${CHAPI_URL}"
   addToSystemProperties "data-query.is-available" "${DQ_AVAILABLE}"
   addToSystemProperties "vista-fhir-query.is-available" "${VFQ_AVAILABLE}"
   addToSystemProperties "access-token" "${MAGIC_ACCESS_TOKEN}"
