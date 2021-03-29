@@ -5,7 +5,8 @@
     "offline_access",
     "patient/Condition.read",
     "patient/Observation.read",
-    "patient/Patient.read"
+    "patient/Patient.read",
+    "patient/Practitioner.read"
   ],
   "responseTypeSupported": [
     "code",
