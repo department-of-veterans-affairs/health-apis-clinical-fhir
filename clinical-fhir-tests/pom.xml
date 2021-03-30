@@ -8,7 +8,7 @@
     <relativePath/>
   </parent>
   <artifactId>clinical-fhir-tests</artifactId>
-  <version>0.0.10-SNAPSHOT</version>
+  <version>0.0.10</version>
   <packaging>jar</packaging>
   <properties>
     <docker.imageName>health-apis-${project.artifactId}</docker.imageName>
