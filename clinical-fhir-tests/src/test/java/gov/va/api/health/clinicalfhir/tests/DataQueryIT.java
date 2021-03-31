@@ -13,15 +13,15 @@ import org.junit.jupiter.params.provider.MethodSource;
 @Slf4j
 public class DataQueryIT {
   SystemDefinition def = SystemDefinitions.systemDefinition();
-  ServiceDefinition r4 = def.getR4();
+  ServiceDefinition r4 = def.r4();
   String apiPath = r4.apiPath();
 
   static Stream<Arguments> resourceQueries() {
-    var testIds = SystemDefinitions.systemDefinition().getPublicIds();
+    var testIds = SystemDefinitions.systemDefinition().publicIds();
     return Stream.of(
-        arguments("Condition?patient=" + testIds.getPatient(), 200),
-        arguments("Patient/" + testIds.getPatient(), 200),
-        arguments("Practitioner/" + testIds.getPractitioner(), 200));
+        arguments("Condition?patient=" + testIds.patient(), 200),
+        arguments("Patient/" + testIds.patient(), 200),
+        arguments("Practitioner/" + testIds.practitioner(), 200));
   }
 
   @ParameterizedTest
