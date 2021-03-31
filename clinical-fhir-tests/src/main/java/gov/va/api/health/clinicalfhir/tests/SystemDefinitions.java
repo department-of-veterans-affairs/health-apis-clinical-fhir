@@ -52,6 +52,13 @@ public final class SystemDefinitions {
         .build();
   }
 
+  private static TestIds qaIds() {
+    return TestIds.builder()
+        .patient("1011537977V693883")
+        .practitioner("I2-6NVSMKEGQKNB3KRDXBGE7NRIEY000000")
+        .build();
+  }
+
   private static ServiceDefinition serviceDefinition(
       String name, String url, int port, String accessToken, String apiPath) {
     return SentinelProperties.forName(name)
@@ -90,13 +97,6 @@ public final class SystemDefinitions {
     return TestIds.builder()
         .patient("1011537977V693883")
         .practitioner("I2-TVUBUQIWCJ6NIPURPDPGIYLLLU000000")
-        .build();
-  }
-
-  private static TestIds qaIds() {
-    return TestIds.builder()
-        .patient("1011537977V693883")
-        .practitioner("I2-6NVSMKEGQKNB3KRDXBGE7NRIEY000000")
         .build();
   }
 

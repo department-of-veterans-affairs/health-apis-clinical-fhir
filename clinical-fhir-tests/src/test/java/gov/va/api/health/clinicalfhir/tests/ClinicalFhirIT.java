@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 @Slf4j
 public class ClinicalFhirIT {
   SystemDefinition def = SystemDefinitions.systemDefinition();
-  ServiceDefinition r4 = def.getR4();
-  String patientId = def.getPublicIds().getPatient();
+  ServiceDefinition r4 = def.r4();
+  String patientId = def.publicIds().patient();
   String apiPath = r4.apiPath();
 
   @Test
