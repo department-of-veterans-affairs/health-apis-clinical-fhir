@@ -13,12 +13,12 @@ import org.junit.jupiter.params.provider.MethodSource;
 @Slf4j
 public class VistaFhirQueryIT {
   SystemDefinition def = SystemDefinitions.systemDefinition();
-  ServiceDefinition r4 = def.getR4();
+  ServiceDefinition r4 = def.r4();
   String apiPath = r4.apiPath();
 
   static Stream<Arguments> resourceQueries() {
-    var testIds = SystemDefinitions.systemDefinition().getPublicIds();
-    return Stream.of(arguments("Observation?patient=" + testIds.getPatient(), 200));
+    var testIds = SystemDefinitions.systemDefinition().publicIds();
+    return Stream.of(arguments("Observation?patient=" + testIds.patient(), 200));
   }
 
   @ParameterizedTest

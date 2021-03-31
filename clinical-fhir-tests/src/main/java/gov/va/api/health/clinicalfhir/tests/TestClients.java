@@ -11,7 +11,7 @@ public final class TestClients {
   public static TestClient internal() {
     return BasicTestClient.builder()
         .contentType("application/json")
-        .service(SystemDefinitions.systemDefinition().getInternal())
+        .service(SystemDefinitions.systemDefinition().internal())
         .mapper(JacksonConfig::createMapper)
         .build();
   }
