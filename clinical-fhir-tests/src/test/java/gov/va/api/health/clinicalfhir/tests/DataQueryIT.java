@@ -19,8 +19,9 @@ public class DataQueryIT {
   static Stream<Arguments> resourceQueries() {
     var testIds = SystemDefinitions.systemDefinition().getPublicIds();
     return Stream.of(
+        arguments("Condition?patient=" + testIds.getPatient(), 200),
         arguments("Patient/" + testIds.getPatient(), 200),
-        arguments("Condition?patient=" + testIds.getPatient(), 200));
+        arguments("Practitionr/" + testIds.getPatient(), 200));
   }
 
   @ParameterizedTest
