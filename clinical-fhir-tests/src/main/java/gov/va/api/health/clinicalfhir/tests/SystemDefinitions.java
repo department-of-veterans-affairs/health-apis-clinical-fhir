@@ -17,9 +17,16 @@ public final class SystemDefinitions {
     return SystemDefinition.builder()
         .internal(serviceDefinition("internal", url, 443, magicAccessToken(), "/clinical-fhir/v0/"))
         .r4(serviceDefinition("r4", url, 443, magicAccessToken(), "/clinical-fhir/v0/r4"))
-        .publicIds(syntheticIds())
+        .publicIds(labIds())
         .isDqAvailable(isDqAvailable())
         .isVfqAvailable(isVfqAvailable())
+        .build();
+  }
+
+  private static TestIds labIds() {
+    return TestIds.builder()
+        .patient("1011537977V693883")
+        .practitioner("I2-DBBL6FFRELZQJ64PWDI7FIVXIU000000")
         .build();
   }
 
@@ -28,9 +35,16 @@ public final class SystemDefinitions {
     return SystemDefinition.builder()
         .internal(serviceDefinition("internal", url, 8120, null, "/clinical-fhir/v0"))
         .r4(serviceDefinition("r4", url, 8120, null, "/clinical-fhir/v0/r4"))
-        .publicIds(syntheticIds())
+        .publicIds(localIds())
         .isDqAvailable(isDqAvailable())
         .isVfqAvailable(isVfqAvailable())
+        .build();
+  }
+
+  private static TestIds localIds() {
+    return TestIds.builder()
+        .patient("1011537977V693883")
+        .practitioner("I2-TVUBUQIWCJ6NIPURPDPGIYLLLU000000")
         .build();
   }
 
@@ -87,16 +101,9 @@ public final class SystemDefinitions {
     return SystemDefinition.builder()
         .internal(serviceDefinition("internal", url, 443, magicAccessToken(), "/clinical-fhir/v0/"))
         .r4(serviceDefinition("r4", url, 443, magicAccessToken(), "/clinical-fhir/v0/r4"))
-        .publicIds(syntheticIds())
+        .publicIds(labIds())
         .isDqAvailable(isDqAvailable())
         .isVfqAvailable(isVfqAvailable())
-        .build();
-  }
-
-  private static TestIds syntheticIds() {
-    return TestIds.builder()
-        .patient("1011537977V693883")
-        .practitioner("I2-TVUBUQIWCJ6NIPURPDPGIYLLLU000000")
         .build();
   }
 
