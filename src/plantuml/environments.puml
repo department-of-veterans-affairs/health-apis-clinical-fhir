@@ -2,7 +2,7 @@
 
 actor "CPM Tester" as TESTER
 rectangle CPM
-rectangle "Loma Linda" as VISTA {
+rectangle "Test Vista Site" as VISTA {
   rectangle CPRS
 }
 
@@ -58,6 +58,10 @@ Because of Loma Linda, DQ will need
 to pull matching patients from CDW
 or we'll need to create dopplegangers
 to synthetic patients
+end note
+
+note bottom of CPRS
+Tampa, Bronx, or Philadelphia
 end note
 
 @enduml
