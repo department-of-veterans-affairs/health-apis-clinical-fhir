@@ -1,0 +1,63 @@
+@startuml
+
+actor "CPM Tester" as TESTER
+rectangle CPM
+rectangle "Loma Linda" as VISTA {
+  rectangle CPRS
+}
+
+rectangle "? DSVA environment" as DSVA_ENV {
+  rectangle "Gateway" as GW
+  rectangle "OAuth Proxy" as AUTH
+}
+
+rectangle "? IAM environment" as SSOI_ENV {
+  rectangle SSOi
+}
+
+rectangle "? MPI environment" as MPI_ENV {
+  rectangle MPI
+}
+
+rectangle "? DVP environment" as DVP_ENV {
+ rectangle "Clinical Health API" as CHAPI
+ rectangle "Data Query" as DQ
+ rectangle "Vista FHIR Query" as VFQ
+ rectangle "Charon" as CHARON
+}
+
+database CDW
+
+TESTER - CPM
+TESTER -- CPRS
+
+CPM -- GW
+CPM -[#blue]- SSOi
+AUTH -[#blue]right- SSOi
+AUTH -[#blue]- CHARON
+
+GW -- CHAPI
+CHAPI -- VFQ
+CHAPI ---- DQ
+DQ -- CDW
+DQ -[#blue]- AUTH
+VFQ -- CHARON
+VFQ -[#blue]- AUTH
+CHARON -- VISTA
+CHARON - MPI
+
+GW .[hidden]. AUTH
+
+legend
+<color:blue>___ authentication/authorization
+<color:maroon>___ data
+end legend
+
+note right of DQ
+Because of Loma Linda, DQ will need
+to pull matching patients from CDW
+or we'll need to create dopplegangers
+to synthetic patients
+end note
+
+@enduml

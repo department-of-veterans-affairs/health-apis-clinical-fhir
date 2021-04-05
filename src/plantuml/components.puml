@@ -1,0 +1,57 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+skinparam {
+  shadowing false
+  ActorBorderColor<<Veteran Health API Consumer>> Gray
+  ActorBackgroundColor<<Veteran Health API Consumer>> LightGray
+}
+
+title
+API-layer option for authorizing the user access
+with both the validation server and Vista.
+
+end title
+
+actor CPM <<Clinical Health API Consumer>>
+actor Apple <<Veteran Health API Consumer>>
+rectangle "Lighthouse Gateway" as GW
+rectangle "Clinical Health API" <<nginx>> as CHAPI
+rectangle "Data Query" as DQ {
+  rectangle Kong <<health-apis-kong>> as DQK
+  rectangle "data-query" as DQA
+}
+rectangle "Vista FHIR Query" as VFQ {
+  rectangle Kong <<health-apis-kong>> as VFQK
+  rectangle "vista-fhir-query" as VFQA
+}
+rectangle Charon
+database CDW
+rectangle Vista
+rectangle "CHAPI Metadata Generator" as CU <<Jenkins>>
+rectangle "Metadata S3" as MD
+rectangle "Token Validation" as TV <<oauth-proxy>>
+
+
+CPM --> GW
+Apple -[#Gray]-> GW
+GW --> CHAPI
+GW -[#Gray]-> DQK
+CHAPI --> DQK : Condition\nPatient\nPractitioner
+CHAPI --> VFQK : Observation
+CHAPI -> MD : CapabilityStatement,\nOpenAPI,\nSmart Config
+VFQA --> Charon : VPR GET PATIENT DATA
+VFQK -[#Blue]-> Charon : <<auth>>\n<<Clinical Health API Consumer>>\nLHS CHECK OPTION ACCESS
+VFQK -- VFQA
+DQK -[#Blue]-> Charon : <<auth>>\n<<Clinical Health API Consumer>>\nLHS CHECK OPTION ACCESS
+DQK -- DQA
+DQA -- CDW
+Charon -- Vista
+DQK -[#Blue]-> TV : <<auth>>\nvalidate
+VFQK -[#Blue]-> TV : <<auth>>\nvalidate
+
+'CU .up. VFQ
+'CU .up. DQK
+CU .up.> MD : <<write>>
+
+@enduml
