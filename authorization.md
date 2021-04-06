@@ -42,6 +42,30 @@
 
 ### Standard Validation
 
+> Standard validation applies the following logic based on the type of request.
+> 
+> _Patient_
+> - Must have patient-level scopes that match resource requested
+> - Can only access their data
+> 
+> _Clinician on behalf of a Patient_
+> - Must have patient-level scopes that match resource requested
+> - Can only access data for the patient in their context
+>
+> _Clinician_
+> - Must have patient-level scopes that match resource requested
+> - Can access data for any patient
+>
+> _System on behalf of a Patient_
+> - Must have system-level scopes that match resource requested
+> - Can only access data for the patient in itss context
+>
+> _System_
+> - Must have system-level scopes that match resource requested
+> - Can access data for any patient
+>
+
+
 - Invoke validation service
   - `POST https://(sandbox-)api.va.gov/internal/auth/v2/validation`
   - Headers:
