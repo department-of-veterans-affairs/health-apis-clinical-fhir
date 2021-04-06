@@ -41,7 +41,7 @@
     
 ### Standard Validation
 - Invoke validation service
-    - `POST https://(sandbox-)api.va.gov/internal/auth/v1/validation`
+    - `POST https://(sandbox-)api.va.gov/internal/auth/v2/validation`
     - Headers:
         - `Authorization: Bearer ${TOKEN}`
         - `Host: ${VERIFICATION_HOST}` **_IS THIS NEEDED?_**
