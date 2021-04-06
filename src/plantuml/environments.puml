@@ -1,5 +1,9 @@
 @startuml
 
+skinparam {
+  shadowing false
+}
+
 actor "CPM Tester" as TESTER
 rectangle CPM
 rectangle "Test Vista Site" as VISTA {
