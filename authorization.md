@@ -54,6 +54,7 @@
             - `WWW-Authenticate: Bearer`
         - if `429`, return `429`
         - if less than `200` or greater than `299`, return `500`
+        - _Note: Token validation service will verify _Clinician_ requests have access to patient data in Vista using a Charon API. Charon will verify that clinician has access to CPRS Vista menu option at the `launch.sta3n` using the clinician's DUZ determined from the `act.vista_id`_
     - Decode response (else `500`)
 - Determine type of request from validation response (else `403`)
     - _Veteran_, e.g. through Apple Health  
