@@ -143,3 +143,5 @@
 - Process request as described above
 - Verify post-request patient matching as described above using pre-configured static access ICN
 
+---
+![components](src/plantuml/components.png)

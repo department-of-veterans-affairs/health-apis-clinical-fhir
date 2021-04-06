@@ -41,14 +41,13 @@ CHAPI --> DQK : Condition\nPatient\nPractitioner
 CHAPI --> VFQK : Observation
 CHAPI -> MD : CapabilityStatement,\nOpenAPI,\nSmart Config
 VFQA --> Charon : VPR GET PATIENT DATA
-VFQK -[#Blue]-> Charon : <<auth>>\n<<Clinical Health API Consumer>>\nLHS CHECK OPTION ACCESS
 VFQK -- VFQA
-DQK -[#Blue]-> Charon : <<auth>>\n<<Clinical Health API Consumer>>\nLHS CHECK OPTION ACCESS
 DQK -- DQA
 DQA -- CDW
 Charon -- Vista
 DQK -[#Blue]-> TV : <<auth>>\nvalidate
 VFQK -[#Blue]-> TV : <<auth>>\nvalidate
+TV -[#Blue]-> Charon : <<auth>>\n<<Clinical Health API Consumer>>\nLHS CHECK OPTION ACCESS
 
 'CU .up. VFQ
 'CU .up. DQK
