@@ -9,11 +9,12 @@
 | `api.va.gov`         | Production  | Prod           | PROD    | Test Vista Site | CDW      |
 
 ### Test Vista Site
+
 One of the pilot sites for CPM.
+
 - (`673`) Tampa, FL
 - (`642`) Philadelphia, PA
 - (`526`) Bronx, NY
-
 
 ### Disabled MPI Interaction
 
@@ -41,7 +42,8 @@ outside of the containing VPC. Deployment changes are required. Ports will need 
 ### SSOi
 
 - We have a single SSOi test account (`TEST_SKLFORNEW`) in PREPROD (Sandbox) with a valid VistaID, NPI, ICN, etc.
-- **? Is this the _only_ account CPM uses?**
+- _**What test account should CPM use?**_
+  > There is no single-sign-on between CPRS and CPM, so they'll use whatever test accounts we tell them about. Whether the data matches up with the environment they are launching from (e.g., sta3n and vista_id) is unknown and unlikely.
 
 ### `dev-api.va.gov`
 
@@ -67,7 +69,8 @@ Making it work (mostly)
 - MPI is still excluded from the equation
 - Update Synth DB to include new Practitioner record for test user
 - Connect Charon API to `Test Vista Site`
-- Create new patients in Synth DB to match up with test patients. Alternative, Doppelgangers could be used if quality is not paramount for patient demographics, diagnoistic reports, etc.
+- Create new patients in Synth DB to match up with test patients. Alternative, Doppelgangers could be used if quality is
+  not paramount for patient demographics, diagnoistic reports, etc.
 
 ### `api.va.gov`
 
@@ -77,4 +80,6 @@ Making it work (mostly)
 ![environments](src/plantuml/environments.png)
 
 ## Additional Considerations
-- The Clinical FHIR API metadata and well-known will must refer to authorization server `https://[sandbox-]api.va.gov/oauth2/clinical-health/v2/*`
+
+- The Clinical FHIR API metadata and well-known will must refer to authorization
+  server `https://[sandbox-]api.va.gov/oauth2/clinical-health/v2/*`
