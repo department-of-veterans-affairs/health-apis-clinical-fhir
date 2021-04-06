@@ -48,11 +48,11 @@
 > - Must have patient-level scopes that match resource requested
 > - Can only access their data
 > 
-> _Clinician on behalf of a Patient_
+> _User on behalf of a Patient_
 > - Must have patient-level scopes that match resource requested
 > - Can only access data for the patient in their context
 >
-> _Clinician_
+> _User_
 > - Must have patient-level scopes that match resource requested
 > - Can access data for any patient
 >
@@ -86,16 +86,16 @@
       - `WWW-Authenticate: Bearer`
     - if `429`, return `429`
     - if less than `200` or greater than `299`, return `500`
-    - _Note: Token validation service will verify _Clinician_ requests have access to patient data in Vista using a
-      Charon API. Charon will verify that clinician has access to CPRS Vista menu option at the `launch.sta3n` using the
-      clinician's DUZ determined from the `act.vista_id`_
+    - _Note: Token validation service will verify _User_ requests have access to patient data in Vista using a
+      Charon API. Charon will verify that user has access to CPRS Vista menu option at the `launch.sta3n` using the
+      user's DUZ determined from the `act.vista_id`_
   - Decode response (else `500`)
 - Determine type of request from validation response (else `403`)
   - _Veteran_, e.g. through Apple Health  
     `act.icn == launch.patient`  
     Uses `patient/*` prefixed scopes
     `launch.patient` is required
-  - _Clinician_, e.g. CPM  
+  - _User_, e.g. CPM  
     `act.icn != null && act.icn != launch.patient`  
     `launch.patient` is optional  
     Uses `patient/*` prefixed scopes
@@ -114,11 +114,11 @@
     - `${prefix}/*.*`
 - Determine if patient matching is required
   - Required if request type is _Veteran_
-  - Required if request type is _Clinician_ and `launch.patient != null`
+  - Required if request type is _User_ and `launch.patient != null`
   - Required if request type is _System_ and `launch.patient != null`
-  - Not required if request type is _Clinician_ and `launch.patient == null`
+  - Not required if request type is _User_ and `launch.patient == null`
   - Not required if request type is _System_ and `launch.patient == null`
-  - _Note: If request type is _Clinician_ or _System_ and `launch.patient == null`, then requester will have access to
+  - _Note: If request type is _User_ or _System_ and `launch.patient == null`, then requester will have access to
     all data._
 - Verify pre-request patient matching (when required)
   - Determine requested ICN if possible
