@@ -7,12 +7,6 @@ skinparam {
   ActorBackgroundColor<<Veteran Health API Consumer>> LightGray
 }
 
-title
-API-layer option for authorizing the user access
-with both the validation server and Vista.
-
-end title
-
 actor CPM <<Clinical Health API Consumer>>
 actor Apple <<Veteran Health API Consumer>>
 rectangle "Lighthouse Gateway" as GW
