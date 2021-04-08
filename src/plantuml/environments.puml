@@ -4,10 +4,18 @@ skinparam {
   shadowing false
 }
 
+!u="<color:blue><&person><color:black>"
+!p="<color:red><&people>"
+!p2="<color:orange><&people>"
+!p3="<color:orchid><&people>"
+!to="<color:black><&transfer>"
+
 actor "CPM Tester" as TESTER
-rectangle CPM
-rectangle "Test Vista Site" as VISTA {
-  rectangle CPRS
+rectangle "CPM u p" as CPM
+rectangle "Test Vista Site" as VISTA_SITE {
+  rectangle "CPRS p3" as CPRS
+  rectangle "Vista u p3" as VISTA
+  CPRS . VISTA
 }
 
 rectangle "? DSVA environment" as DSVA_ENV {
@@ -16,56 +24,51 @@ rectangle "? DSVA environment" as DSVA_ENV {
 }
 
 rectangle "? IAM environment" as SSOI_ENV {
-  rectangle SSOi
+  rectangle "SSOi u" as SSOi
 }
 
 rectangle "? MPI environment" as MPI_ENV {
-  rectangle MPI
+  rectangle "MPI p3" as MPI
 }
 
 rectangle "? DVP environment" as DVP_ENV {
  rectangle "Clinical Health API" as CHAPI
- rectangle "Data Query" as DQ
- rectangle "Vista FHIR Query" as VFQ
+ rectangle "Data Query\np to p2" as DQ
+ rectangle "Vista FHIR Query\np to p3" as VFQ
  rectangle "Charon" as CHARON
 }
 
-database CDW
+database "CDW p2" as CDW
 
-TESTER - CPM
-TESTER -- CPRS
+TESTER --> CPM : login as u\nview p
+TESTER ---> CPRS : modify p3
 
-CPM -- GW
-CPM -[#blue]- SSOi
-AUTH -[#blue]right- SSOi
-AUTH -[#blue]- CHARON
+CPM --> GW : u+p
+'CPM -[#blue]-> SSOi
+AUTH -[#blue]-> SSOi : u
+AUTH -[#blue]-> CHARON : u
 
-GW -- CHAPI
-CHAPI -- VFQ
-CHAPI ---- DQ
-DQ -- CDW
-DQ -[#blue]- AUTH
-VFQ -- CHARON
-VFQ -[#blue]- AUTH
-CHARON -- VISTA
-CHARON - MPI
+GW --> CHAPI : u+p
+CHAPI --> VFQ : u+p
+CHAPI ----> DQ : u+p
+DQ --> CDW : p2
+DQ -[#blue]-> AUTH : u
+VFQ --> CHARON : p3
+VFQ -[#blue]-> AUTH : u
+CHARON -up-> VISTA: p3
+CHARON -[#blue]up-> VISTA: u
+CHARON ~~> MPI: p3\noptional in sandbox
 
 GW .[hidden]. AUTH
 
 legend
 <color:blue>___ authentication/authorization
 <color:maroon>___ data
+u user
+p patient data
+to test identity swap
 end legend
 
-note right of DQ
-Because of Loma Linda, DQ will need
-to pull matching patients from CDW
-or we'll need to create dopplegangers
-to synthetic patients
-end note
 
-note bottom of CPRS
-Tampa, Bronx, or Philadelphia
-end note
 
 @enduml

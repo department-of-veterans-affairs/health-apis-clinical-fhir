@@ -7,8 +7,8 @@ skinparam {
   ActorBackgroundColor<<Veteran Health API Consumer>> LightGray
 }
 
-actor CPM <<Clinical Health API Consumer>>
 actor Apple <<Veteran Health API Consumer>>
+actor CPM <<Clinical Health API Consumer>>
 rectangle "Lighthouse Gateway" as GW
 rectangle "Clinical Health API" <<nginx>> as CHAPI
 rectangle "Data Query" as DQ {

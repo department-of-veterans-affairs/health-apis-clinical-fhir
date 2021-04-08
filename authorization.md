@@ -84,6 +84,7 @@
   - Check validation response
     - if `401`, return `401` with header
       - `WWW-Authenticate: Bearer`
+    - if `403`, return `403` with header
     - if `429`, return `429`
     - if less than `200` or greater than `299`, return `500`
     - _Note: Token validation service will verify _User_ requests have access to patient data in Vista using a
@@ -142,6 +143,14 @@
 - Verify pre-request patient matching as describe above using pre-configured static access ICN
 - Process request as described above
 - Verify post-request patient matching as described above using pre-configured static access ICN
+
+--
+TODO
+- Charon /clinical-auth-check/v0/$site/$duz endpoint
+  - will need to provide Alt IDs capability to support lab env
+- Updated request type determination logic with new type field
+- Write auth option and data option scenarios
+- Define tasks to implement and update https://vajira.max.gov/browse/API-5924
 
 ---
 ![components](src/plantuml/components.png)
