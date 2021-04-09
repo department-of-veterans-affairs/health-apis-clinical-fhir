@@ -112,4 +112,4 @@ Condition records for CPM:
 ## Additional Considerations
 
 - The Clinical FHIR API metadata and well-known will must refer to authorization
-  server `https://[sandbox-]api.va.gov/oauth2/clinical-health/v2/*`
+  server `https://[sandbox-]api.va.gov/oauth2/clinical-health/v1/*`
