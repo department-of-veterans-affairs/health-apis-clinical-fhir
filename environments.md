@@ -6,7 +6,7 @@
 | -                    | Staging-Lab | DISABLED (SQA) | -       | Tampa Docker    | Synth DB |
 | `staging-api.va.gov` | -           | -              | INT     | -               | -        |
 | `sandbox-api.va.gov` | Lab         | DISABLED (SQA) | PREPROD | Tampa Docker    | Synth DB |
-| `api.va.gov`         | Production  | Prod           | PROD    | Test Vista Site | CDW      |
+| `api.va.gov`         | Production  | Prod           | PROD    | Vista Site      | CDW      |
 
 ### Test Vista Site
 
@@ -60,6 +60,7 @@ outside of the containing VPC. Deployment changes are required. Ports will need 
 
 - Tampa Docker does not provide access to users to interact with data, e.g. CPM testers cannot add records to Vista.
 - SSOi user with auth-related data does not have matching Practitioner entry in Synth DB.
+- MPI integration is currently disabled, but could be mocked to direct certain patients to Loma Linda and others to Tampa Docker
 
 Making it work (mostly)
 
@@ -77,7 +78,36 @@ Making it work (mostly)
 - Clinical Health APIs not yet deployed
 - SSOi not yet updated
 
-![environments](src/plantuml/environments.png)
+---
+# Production
+![environments-production](src/plantuml/environments-production.png)
+
+
+# Sandbox
+![environments-sandbox](src/plantuml/environments-sandbox.png)
+
+## Making cohesive test environment
+### CPM Use Case
+![sequence-sandbox](src/plantuml/sequence-sandbox.png)
+
+
+### Patient ID Mapping
+
+> NOTE: Cannot map one patient ID to different Vista IDs in Loma Linda or Tampa
+
+| CPM Patient | Test Patient                    |  ICN     | Loma Linda | Tampa Docker |
+|-------------|---------------------------------|----------|------------|--------------|
+| ?           | va.api.user+idme.101@gmail.com  | 32000225 | missing    | 5000000345   |
+| ?           | va.api.user+idme.102@gmail.com  | 5000335  | missing    | 5000000348   |
+| ?           | va.api.user+idme.103@gmail.com  | 25000126 | missing    | 5000000341   |
+| ?           | va.api.user+idme.119@gmail.com  | 43000199 | missing    | missing      |
+
+Condition records for CPM:
+- va.api.user+idme.101@gmail.com `18` (several risk factors relating to CPM)
+- va.api.user+idme.102@gmail.com `16` (several risk factors relating to CPM)
+- va.api.user+idme.103@gmail.com `8` (at least one risk factor relating to CPM)
+- va.api.user+idme.119@gmail.com `5` (Hypertension I think is the only CPM related item)
+
 
 ## Additional Considerations
 

@@ -1,0 +1,87 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+skinparam {
+  shadowing false
+}
+
+!u="<color:blue><&person><color:black>"
+!ua="<color:ccc><&person><color:black>"
+!uw="<color:pink><&person><color:black>"
+!p="<color:red><&people><color:black>"
+!p2="<color:orange><&people><color:black>"
+!p3="<color:orchid><&people><color:black>"
+!p4="<color:lightgreen><&people><color:black>"
+!pa="<color:ccc><&people><color:black>"
+!pw="<color:pink><&people><color:black>"
+!to="<color:black><&transfer>"
+
+autonumber
+actor "CPM Tester" as TESTER
+participant "CPRS (Loma Linda)" as CPRS
+participant "CPM" as CPM
+participant "Vista (Loma Linda)" as LOMA
+participant "Gateway" as GW
+participant "Clinical Health API" as CHAPI
+participant "Data Query" as DQ
+participant "Vista FHIR Query" as VFQ
+participant "Charon" as CHARON
+participant "Mock MPI" as MPI
+participant "Synthetic DB" as CDW
+participant "OAuth Proxy" as AUTH
+participant "SSOi" as SSOi
+
+TESTER -> CPRS : Login and Launch CPM (sets u)
+TESTER -> CPM: Loads patient (sets p)
+CPM -> GW: Request resource (u+p)
+GW -> CHAPI: Forward request (u+p)
+alt Condition, Patient, or Practitioner
+  CHAPI->DQ: Forward request (u+p)
+  activate DQ
+  DQ->AUTH: Validate token (u)
+  activate AUTH
+  AUTH->SSOi: Check authorization (u)
+  AUTH<-SSOi: Allow
+  DQ<-AUTH: Allow
+  deactivate AUTH
+  DQ->DQ: Swap identity (p to p2)
+  DQ->CDW: Query (p2)
+  DQ<-CDW: Results (p2)
+  DQ->DQ: Swap identity (p2 to p)
+  CHAPI<-DQ: Resource (p)
+  deactivate DQ
+else Observation
+  CHAPI->VFQ: Forward request (u+p)
+  activate VFQ
+  VFQ->AUTH: Validate token (u)
+  activate AUTH
+  AUTH->SSOi: Check authorization (u)
+  AUTH<-SSOi: Allow
+  AUTH->CHARON: Check authorization (site+duz) (u)
+  activate CHARON
+  CHARON->LOMA: Invoke LHS CHECK OPTION ACCESS as LHS APPLICATION PROXY (u)
+  CHARON<-LOMA: Allow
+  AUTH<-CHARON: Allow
+  deactivate CHARON
+  VFQ<-AUTH: Allow
+  deactivate AUTH
+  VFQ->VFQ: Swap identity (p to p3)
+  VFQ->CHARON: Invoke RPC (p3)
+  activate CHARON
+  CHARON->MPI: Get patient info (1309 request) (p3)
+  CHARON<-MPI: Patient info
+  CHARON->CHARON: Select Vista site
+  CHARON->LOMA: Invoke VPR GET PATIENT DATA as LHS APPLICATION PROXY (p3)
+  CHARON<-LOMA: Results (p3)
+  VFQ<-CHARON: Results (p3)
+  deactivate CHARON
+  VFQ->VFQ: Swap identity (p3 to p)
+
+  CHAPI<-VFQ: Resource (p)
+  deactivate VFQ
+end
+
+GW <- CHAPI: Resource (p)
+CPM <- GW: Resource (p)
+TESTER <- CPM: Resource (p)
+
+@enduml
