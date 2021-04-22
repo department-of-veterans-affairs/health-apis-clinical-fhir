@@ -41,15 +41,15 @@
               },
               {
                 "url": "authorize",
-                "valueUri": "https://sandbox-api.va.gov/oauth2/authorization"
+                "valueUri": "https://sandbox-api.va.gov/oauth2/clinical-health/v1/authorization"
               },
               {
                 "url": "manage",
-                "valueUri": "https://sandbox-api.va.gov/oauth2/manage"
+                "valueUri": "https://sandbox-api.va.gov/oauth2/clinical-health/v1/manage"
               },
               {
                 "url": "revoke",
-                "valueUri": "https://sandbox-api.va.gov/oauth2/revoke"
+                "valueUri": "https://sandbox-api.va.gov/oauth2/clinical-health/v1/revoke"
               }
             ]
           }
