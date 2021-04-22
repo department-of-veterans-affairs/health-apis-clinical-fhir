@@ -37,19 +37,19 @@
             "extension": [
               {
                 "url": "token",
-                "valueUri": "https://dev-api.va.gov/services/clinical-fhir/v0/r4/token"
+                "valueUri": "https://sandbox-api.va.gov/services/clinical-fhir/v0/r4/token"
               },
               {
                 "url": "authorize",
-                "valueUri": "https://dev-api.va.gov/oauth2/authorization"
+                "valueUri": "https://sandbox-api.va.gov/oauth2/clinical-health/v1/authorization"
               },
               {
                 "url": "manage",
-                "valueUri": "https://dev-api.va.gov/oauth2/manage"
+                "valueUri": "https://sandbox-api.va.gov/oauth2/clinical-health/v1/manage"
               },
               {
                 "url": "revoke",
-                "valueUri": "https://dev-api.va.gov/oauth2/revoke"
+                "valueUri": "https://sandbox-api.va.gov/oauth2/clinical-health/v1/revoke"
               }
             ]
           }

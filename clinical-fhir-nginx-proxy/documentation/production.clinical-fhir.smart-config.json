@@ -1,5 +1,5 @@
 {
-  "authorizationEndpoint": "https://api.va.gov/oauth2/authorization",
+  "authorizationEndpoint": "https://api.va.gov/oauth2/clinical-health/v1/authorization",
   "tokenEndpoint": "https://api.va.gov/services/clinical-fhir/v0/r4/token",
   "scopesSupported": [
     "offline_access",
@@ -12,8 +12,8 @@
     "code",
     "refresh_token"
   ],
-  "managementEndpoint": "https://api.va.gov/oauth2/manage",
-  "revocationEndpoint": "https://api.va.gov/oauth2/revoke",
+  "managementEndpoint": "https://api.va.gov/oauth2/clinical-health/v1/manage",
+  "revocationEndpoint": "https://api.va.gov/oauth2/clinical-health/v1/revoke",
   "capabilities": [
     "context-standalone-patient",
     "launch-ehr",
