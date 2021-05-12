@@ -3,3 +3,6 @@ target/
 *.iml
 
 .private/
+secrets.conf
+dev-nginx.conf
+
