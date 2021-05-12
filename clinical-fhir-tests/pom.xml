@@ -4,11 +4,11 @@
   <parent>
     <groupId>gov.va.api.health</groupId>
     <artifactId>test-starter</artifactId>
-    <version>7.0.23</version>
+    <version>7.0.24</version>
     <relativePath/>
   </parent>
   <artifactId>clinical-fhir-tests</artifactId>
-  <version>0.0.19-SNAPSHOT</version>
+  <version>0.0.19</version>
   <packaging>jar</packaging>
   <properties>
     <docker.imageName>health-apis-${project.artifactId}</docker.imageName>
