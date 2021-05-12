@@ -7,9 +7,10 @@ Usage:
   ${0} [options]
 
 Options:
-  --debug               Turn on debug output
-  -h|--help             Display this menu
-  -s|--secrets-conf     Location of secrets file for environment substitution
+  --debug            Turn on debug output
+  -h|--help          Display this menu
+  -n|--nginx-conf    Location of nginx-conf file to use
+  -s|--secrets-conf  Location of secrets file for environment substitution
 
 ${1}
 EOF
@@ -42,8 +43,8 @@ main() {
     case "$1" in
       --debug) set -x;;
       -h|--help) usage "Just don't. Don't even. I can't.";;
-      -n|--nginx-conf) NGINX_CONF="${2:-}";;
-      -s|--secrets-conf) SECRETS_CONF="${2:-}";;
+      -n|--nginx-conf) NGINX_CONF="$(readlink -f ${2})";;
+      -s|--secrets-conf) SECRETS_CONF="${2}";;
       --) shift;break;;
     esac
     shift;
@@ -60,7 +61,7 @@ main() {
   if [ -z "${NGINX_CONF:-}" ]
   then 
     echo "Using default nginx configuration from deployment-unit."
-    NGINX_CONF="$(defaultNginxConf)"
+    useDefaultNginxConf
   fi
 
   cat ${NGINX_CONF} | replacePorts | envsubst > ${DEV_CONF}
@@ -72,14 +73,6 @@ main() {
 }
 
 #=============================================
-
-defaultNginxConf() {
-  local du=$(find "${SHANKTOPUS_WORKSPACE:-${HOME}}" -type d -name "${DEPLOYMENT_UNIT}")
-  if [ -z "${du:-}" ]; then usage "Couldn't find clinical-fhir deployment unit: ${DEPLOYMENT_UNIT}";fi
-  local conf="$(find ${du} -type f -name 'nginx.properties' | head -n +1)"
-  if [ ! -f "${conf:-}" ]; then usage "Couldn't find default nginx.conf file."; fi
-  echo "${conf}"
-}
 
 determineProjectVersion() {
   cat ${WORK}/../pom.xml \
@@ -108,12 +101,20 @@ replacePorts() {
 runClinicalFhirNginxProxy() {
   local version="${1:-}"
 
-  docker run --rm --detach \
+  docker run --rm \
     --name clinical-fhir-proxy \
     --volume ${DEV_CONF}:/local-nginx.conf \
     --net="host" \
     --env NGINX_CONF=/local-nginx.conf \
     vasdvp/health-apis-clinical-fhir-nginx-proxy:${version}
+}
+
+useDefaultNginxConf() {
+  local du=$(find "${SHANKTOPUS_WORKSPACE:-~/va}" -type d -name "${DEPLOYMENT_UNIT}")
+  if [ -z "${du:-}" ]; then usage "Couldn't find clinical-fhir deployment unit: ${DEPLOYMENT_UNIT}";fi
+  local conf="$(find ${du} -type f -name 'nginx.properties' | head -n +1)"
+  if [ ! -f "${conf:-}" ]; then usage "Couldn't find default nginx.conf file."; fi
+  NGINX_CONF="${conf}"
 }
 
 #=============================================
