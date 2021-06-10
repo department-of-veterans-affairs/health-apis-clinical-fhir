@@ -100,17 +100,6 @@ public final class SystemDefinitions {
         .serviceDefinition();
   }
 
-  private static SystemDefinition production() {
-    String url = "https://api.va.gov";
-    return SystemDefinition.builder()
-            .internal(serviceDefinition("internal", url, 443, magicAccessToken(), "/services/clinical-fhir/v0/"))
-            .r4(serviceDefinition("r4", url, 443, magicAccessToken(), "/services/clinical-fhir/v0/r4"))
-            .publicIds(productionIds())
-            .isDqAvailable(isDqAvailable())
-            .isVfqAvailable(isVfqAvailable())
-            .build();
-  }
-
   private static SystemDefinition staging() {
     String url = "https://blue.staging.lighthouse.va.gov";
     return SystemDefinition.builder()
