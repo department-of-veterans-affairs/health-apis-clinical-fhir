@@ -28,7 +28,7 @@ public final class SystemDefinitions {
   private static TestIds labIds() {
     return TestIds.builder()
         .patient("1011537977V693883")
-        .practitioner("I2-DBBL6FFRELZQJ64PWDI7FIVXIU000000")
+        .practitioner("I2-HRJI2MVST2IQSPR7U5SACWIWZA000000")
         .build();
   }
 
