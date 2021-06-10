@@ -24,6 +24,9 @@ main() {
   addToSystemProperties "vista-fhir-query.is-available" "${VFQ_AVAILABLE}"
   addToSystemProperties "access-token" "${MAGIC_ACCESS_TOKEN}"
 
+  if [ -n "${INTERNAL_API_PATH:-}" ]; then addToSystemProperties "sentinel.internal.api-path" "$INTERNAL_API_PATH"; fi
+  if [ -n "${R4_API_PATH:-}" ]; then addToSystemProperties "sentinel.r4.api-path" "$R4_API_PATH"; fi
+
   java-tests \
     --module-name "clinical-fhir-tests" \
     --regression-test-pattern ".*IT\$" \
