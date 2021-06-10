@@ -13,10 +13,12 @@ import org.apache.commons.lang3.BooleanUtils;
 @UtilityClass
 public final class SystemDefinitions {
   private static SystemDefinition lab() {
-    String url = "https://blue.lab.lighthouse.va.gov";
+    String url = "https://sandbox-api.va.gov";
     return SystemDefinition.builder()
-        .internal(serviceDefinition("internal", url, 443, magicAccessToken(), "/clinical-fhir/v0/"))
-        .r4(serviceDefinition("r4", url, 443, magicAccessToken(), "/clinical-fhir/v0/r4"))
+        .internal(
+            serviceDefinition(
+                "internal", url, 443, magicAccessToken(), "/services/clinical-fhir/v0/"))
+        .r4(serviceDefinition("r4", url, 443, magicAccessToken(), "/services/clinical-fhir/v0/r4"))
         .publicIds(labIds())
         .isDqAvailable(isDqAvailable())
         .isVfqAvailable(isVfqAvailable())
@@ -26,7 +28,7 @@ public final class SystemDefinitions {
   private static TestIds labIds() {
     return TestIds.builder()
         .patient("1011537977V693883")
-        .practitioner("I2-DBBL6FFRELZQJ64PWDI7FIVXIU000000")
+        .practitioner("I2-HRJI2MVST2IQSPR7U5SACWIWZA000000")
         .build();
   }
 
