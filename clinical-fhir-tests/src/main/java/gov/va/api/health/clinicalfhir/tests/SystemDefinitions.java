@@ -75,16 +75,9 @@ public final class SystemDefinitions {
     return SystemDefinition.builder()
         .internal(serviceDefinition("internal", url, 443, magicAccessToken(), "/clinical-fhir/v0/"))
         .r4(serviceDefinition("r4", url, 443, magicAccessToken(), "/clinical-fhir/v0/r4"))
-        .publicIds(qaIds())
+        .publicIds(labIds())
         .isDqAvailable(isDqAvailable())
         .isVfqAvailable(isVfqAvailable())
-        .build();
-  }
-
-  private static TestIds qaIds() {
-    return TestIds.builder()
-        .patient("1011537977V693883")
-        .practitioner("I2-6NVSMKEGQKNB3KRDXBGE7NRIEY000000")
         .build();
   }
 
