@@ -66,7 +66,7 @@ public final class SystemDefinitions {
   private static TestIds productionIds() {
     return TestIds.builder()
         .patient("1011537977V693883")
-        .practitioner("I2-6NVSMKEGQKNB3KRDXBGE7NRIEY000000")
+        .practitioner("I2-A5Q24JYL4AQKD664ASIIGBVYQUXVWZRBWWGVFCS7IBU27TJIZBFQ0000")
         .build();
   }
 
