@@ -1,0 +1,1 @@
+Documentation has moved to [yanartas](https://github.com/department-of-veterans-affairs/health-apis-yanartas-deployment/tree/master/conformance-documentation)
